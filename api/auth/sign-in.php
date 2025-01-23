@@ -49,7 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     return array(
                         'status' => 201,
-                        'message' => 'Sign in successful'
+                        'message' => 'Sign in successful',
+                        // 'image' => $row['profile_image_url']
                     );
                 } else {
                     return array(

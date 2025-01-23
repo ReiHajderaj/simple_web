@@ -48,12 +48,13 @@ const signUp = async (fullname, email, password) => {
             body: JSON.stringify(data),
         });
 
-        const result = await response.json();
+        
 
         if (response.ok) {
-            console.log(result);
+            const result = await response.json();
             
             if (result.status === 201) {
+                // sessionStorage.setItem('image', result.image);
                 window.location.href = '../../dashboard';
             }   else {
                 displayError(result.message || 'An error occurred during sign up. Please try again.');

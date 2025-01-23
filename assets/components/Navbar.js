@@ -1,35 +1,51 @@
-const Navbar = () => {
+const Navbar = async () => {
 
 
     const nav = document.querySelector('.navbar');
-
+    // try {
+        const request = await fetch('/simple_web/api/users/getCurrentUser.php');
+        if(request.ok){
+            
+            const data = await request.json();
+            if(data.error){
+                window.location.href = '/simple_web/auth/sign-in/';
+            } else if(data.status === 201){
+                nav.innerHTML +=`
+                <a class="logo" href="/simple_web/dashboard">
+                        <img src="/simple_web/assets/icons/icon.png" alt="Logo" class="logo_img" />
+                    </a>
+                    <div class="search_container">
+                        <div class="search_box">
+                            <input type="text" placeholder="Search" /><button>Search</button>
+                        </div>
+                    </div>
+                    <div class="user_container">
+                        <div class="user_box">
+                            <div class="username">
+                                ${data.message.username}
+                            </div>
+                                
+                            
+                            <div class="user_photo">
+                                <div class="photo">
+                                    <img src="/simple_web/assets/images/avatars/${data.message.profile_image_url}" alt="Profile Picture" />
+                                </div>
+                            </div>
+                            <button class="logout-button">
+                                </button>
+                        </div>
+                    </div>
+                    `
+            ;
+            }
+            
+        }
+    // } catch (error) {
+    //     console.error(error);
+    // }
     
     
-    nav.innerHTML +=`
-        <a class="logo" href="/dashboard">
-                <img src="/simple_web/assets/icons/icon.png" alt="Logo" class="logo_img" />
-            </a>
-            <div class="search_container">
-                <div class="search_box">
-                    <input type="text" placeholder="Search" /><button>Search</button>
-                </div>
-            </div>
-            <div class="user_container">
-                <div class="user_box">
-                    <div class="username">
-                        user#0022
-                    </div>
-                        
-                    
-                    <div class="user_photo">
-                        <div class="photo"></div>
-                    </div>
-                    <button class="logout-button">
-                        </button>
-                </div>
-            </div>
-            `
-    ;
+    
 
 }
 

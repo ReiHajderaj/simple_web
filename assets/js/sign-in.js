@@ -29,6 +29,7 @@ const signIn = async (email, password) => {
             console.log(result);
 
             if (result.status === 201) {
+                // sessionStorage.setItem('image', result.image);
                 window.location.href = '../../dashboard';
             } else {
                 displayError(result.message);

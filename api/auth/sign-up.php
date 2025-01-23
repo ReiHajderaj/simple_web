@@ -46,7 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['email'] = $email;
                 return array(
                     'status' => 201,
-                    'message' => 'Sign up successful'
+                    'message' => 'Sign up successful',
+                    // 'image' => 'default.png'
+
                 );
 
             } else {
@@ -71,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     http_response_code(500);
     echo json_encode([
         'status' => 500,
-        'message' => 'Incorrect method'
+        'message' => 'Incorrect method',
+        
     ]);
 }
