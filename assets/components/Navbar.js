@@ -2,7 +2,7 @@ const Navbar = async () => {
 
 
     const nav = document.querySelector('.navbar');
-    // try {
+    try {
         const request = await fetch('/simple_web/api/users/getCurrentUser.php');
         if(request.ok){
             
@@ -27,11 +27,11 @@ const Navbar = async () => {
                                 
                             
                             <div class="user_photo">
-                                <div class="photo">
+                                <a href='/simple_web/dashboard/home' class="photo">
                                     <img src="/simple_web/assets/images/avatars/${data.message.profile_image_url}" alt="Profile Picture" />
-                                </div>
+                                </a>
                             </div>
-                            <button class="logout-button">
+                            <button class="logout-button" >
                                 </button>
                         </div>
                     </div>
@@ -40,10 +40,23 @@ const Navbar = async () => {
             }
             
         }
-    // } catch (error) {
-    //     console.error(error);
-    // }
+    } catch (error) {
+        console.error(error);
+    }
+
+    const logout = async () =>{
+        try{
+            const request = await fetch('/simple_web/api/users/logout.php');
+            if(request.ok){
+                window.location.href = '/simple_web/auth/sign-in/';
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
     
+    const logoutBtn = document.querySelector('.logout-button');
+    logoutBtn.addEventListener('click', logout);
     
     
 

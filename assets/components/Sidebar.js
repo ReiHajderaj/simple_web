@@ -9,6 +9,13 @@ const Sidebar = () => {
                     <div class="item">
                         <div  class="item_banner" 
                         
+                        onclick="goHome()">Home</div>
+                        <div class="notifications">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div  class="item_banner" 
+                        
                         onclick="populateNotifications()">Notifications</div>
                         <div class="notifications">
                         </div>
@@ -40,6 +47,10 @@ const Sidebar = () => {
 
 const goSettings = () =>{
     window.location.href = '/simple_web/dashboard/settings'
+}
+
+const goHome = () =>{
+    window.location.href = '/simple_web/dashboard/home'
 }
 
 const addFriendInput = () => {
