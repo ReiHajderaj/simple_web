@@ -25,30 +25,29 @@
             </div>
             <div class="main_body">
                 <div class="posting_container">
-                    <input class="posting_input" type="text" placeholder="What are you thinking?">
-                    <textarea class="posting_content" placeholder="Describe your experience.." rows="5"></textarea>
-                    <div class="image-upload">
-                        <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                        <label for="imageInput" class="upload-label">
+                    <input class="posting_input" type="text" placeholder="What's on your mind?" id="postTitle">
+                    <textarea class="posting_content" placeholder="Describe your experience.." rows="5" id="postContent"></textarea>
+                    
+                    <!-- Image Upload Section -->
+                    <div class="image_upload_section">
+                        <label for="postImage" class="upload-label">
                             <i class="fas fa-image"></i> Add Image
                         </label>
-                        <div id="imagePreview" style="display: none;">
-                            <img id="preview" src="" alt="Preview" style="max-width: 100%; max-height: 200px; margin-top: 10px;">
-                            <button onclick="removeImage()" class="remove-image">
-                                <i class="fas fa-times"></i>
-                            </button>
+                        <input type="file" id="postImage" accept="image/*" style="display: none;">
+                        <div id="imagePreviewContainer" style="display: none;">
+                            <img id="imagePreview" src="#" alt="Image Preview">
                         </div>
                     </div>
+                    
                     <div class="posting_buttons">
-                        <button class="postBtn">Post it</button>
-                        <button class="draftBtn">Save Draft</button>
+                        <button class="postBtn" id="postButton">Post it</button>
+                        <button class="draftBtn" id="cancelButton">Cancel</button>
                     </div>
                 </div>
 
-                <div class="post_container">
-
-                    
-        
+                <!-- Recent Posts Section -->
+                <div class="post_container" id="recentPosts">
+                    <!-- User's and Friends' recent posts will appear here -->
                 </div>
             </div>
 

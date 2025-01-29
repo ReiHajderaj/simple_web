@@ -35,17 +35,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $insertStmt->bind_param("ss", $row['id'], $_SESSION['id']);
             $insertStmt->execute();
             if($insertStmt->affected_rows > 0) {
-                $response['status'] = true;
+                $response['status'] = 201;
                 $response['message'] = "Friend request sent successfully";
             } else {
-                $response['status'] = false; 
+                $response['status'] = 500; 
                 $response['message'] = "Server error try again later";
             }
             $insertStmt->close();
             
 
         } else {
-            $response['status'] = false;
+            $response['status'] = 404;
             $response['message'] = "Username not found";
         }
 

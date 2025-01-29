@@ -3,12 +3,12 @@ header('Content-Type: application/json');
 
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Function to handle sign up
     function logout() {
         
         
-        if(isset($_SESSION['id'])){
+        // if(isset($_SESSION['id'])){
             session_unset(); // Clear all session variables
             session_destroy(); // Destroy the session
             session_start(); // Start a new session to ensure proper destruction
@@ -18,12 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'status' => 200,
                 'message' => 'Logged out successfully'
             );
-        } else {
-            return array(
-                'status' => 401,
-                'message' => 'No active session found'
-            ); 
-        }
+        // } else {
+        //     return array(
+        //         'status' => 401,
+        //         'message' => 'No active session found'
+        //     ); 
+        // }
     }
     echo json_encode(logout());
     

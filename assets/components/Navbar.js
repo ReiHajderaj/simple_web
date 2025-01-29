@@ -46,7 +46,12 @@ const Navbar = async () => {
 
     const logout = async () =>{
         try{
-            const request = await fetch('/simple_web/api/users/logout.php');
+            const request = await fetch('/simple_web/api/users/logout.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
             if(request.ok){
                 window.location.href = '/simple_web/auth/sign-in/';
             }

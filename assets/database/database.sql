@@ -75,7 +75,7 @@ CREATE TABLE Notifications (
     type ENUM('like', 'comment', 'friend_request', 'message') NOT NULL,
     source_id INT NOT NULL,
     post_id INT NULL,
-    is_read BOOLEAN DEFAULT FALSE,
+
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
 );
