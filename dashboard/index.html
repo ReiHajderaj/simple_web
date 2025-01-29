@@ -26,7 +26,19 @@
             <div class="main_body">
                 <div class="posting_container">
                     <input class="posting_input" type="text" placeholder="What are you thinking?">
-                    <textarea class="posting_content" placeholder="Describe your experience.." rows="5" ></textarea>
+                    <textarea class="posting_content" placeholder="Describe your experience.." rows="5"></textarea>
+                    <div class="image-upload">
+                        <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                        <label for="imageInput" class="upload-label">
+                            <i class="fas fa-image"></i> Add Image
+                        </label>
+                        <div id="imagePreview" style="display: none;">
+                            <img id="preview" src="" alt="Preview" style="max-width: 100%; max-height: 200px; margin-top: 10px;">
+                            <button onclick="removeImage()" class="remove-image">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
                     <div class="posting_buttons">
                         <button class="postBtn">Post it</button>
                         <button class="draftBtn">Save Draft</button>
@@ -35,31 +47,7 @@
 
                 <div class="post_container">
 
-                    <div class="post">
-                        <div class="post_top">
-                            <div class="post_author_photo"></div>
-                            <div class="post_info">
-                                <div class="post_author_name">user2024</div>
-                                <div class="post_date">23/11/2024</div>
-                            </div>
-                            <div class="post_more"><i class="fas fa-ellipsis"></i></div>
-                            <div class="post_close"><i class="fas fa-close"></i></div>
-                        </div>
-                        <div class="post_content">
-                            <span class="post_heading">How to lorem? Easy trick.</span><br>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Corrupti reiciendis velit quia repudiandae, asperiores in quibusdam quod,
-                            aut temporibus saepe iste corporis suscipit numquam natus voluptates blanditiis perspiciatis.
-                            Tenetur qui minima itaque sed a saepe sit similique voluptas eos voluptatem harum porro, illo,
-                                unde amet neque molestias facere vitae maxime.</p><br>
-                                <div class="post_image"></div>
-                            </div>
-                        <div class="post_bottom">
-                            <div><i class="fas fa-thumbs-up"></i><span>Like</span></div>
-                            <div><i class="fas fa-comment"></i><span>Comments</span></div>
-                            <div><i class="fas fa-share"></i><span>Share</span></div>
-                        </div>
-                    </div>
+                    
         
                 </div>
             </div>

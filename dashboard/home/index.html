@@ -38,6 +38,18 @@
                 <div class="posting_container">
                     <input class="posting_input" type="text" placeholder="What's on your mind?" id="postTitle">
                     <textarea class="posting_content" placeholder="Describe your experience.." rows="5" id="postContent"></textarea>
+                    
+                    <!-- Image Upload Section -->
+                    <div class="image_upload_section">
+                        <label for="postImage" class="upload-label">
+                            <i class="fas fa-image"></i> Add Image
+                        </label>
+                        <input type="file" id="postImage" accept="image/*" style="display: none;">
+                        <div id="imagePreviewContainer" style="display: none;">
+                            <img id="imagePreview" src="#" alt="Image Preview">
+                        </div>
+                    </div>
+                    
                     <div class="posting_buttons">
                         <button class="postBtn" id="postButton">Post it</button>
                         <button class="draftBtn" id="cancelButton">Cancel</button>
@@ -54,7 +66,7 @@
     <script src="../../assets/components/Navbar.js"></script>
     <script src="../../assets/components/Sidebar.js"></script>
     <script src="../../assets/js/isNotLogin.js"></script>
-    <script src="../../assets/js/dashboard.js"></script>
+    
     <script src="../../assets/js/home.js"></script>
 </body>
 </html>
