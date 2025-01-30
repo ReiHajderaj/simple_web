@@ -20,10 +20,8 @@
     border-bottom: 1px solid #eee;
 }
 
-.chat_list_header h3 {
-    margin: 0;
-    color: #333;
-}
+
+
 
 .chat_list_content {
     flex: 1;
@@ -58,10 +56,19 @@
     object-fit: cover;
 }
 
-.chat_profile_info h3 {
+.chat_profile_info h3 a {
     margin: 0;
     color: #2c3e50;
     font-size: 16px;
+    text-decoration: none;
+}
+
+.chat_profile_info h3 a:hover {
+    color: #007bff;
+}
+
+.chat_profile_info h3 a:focus {
+    color: #00a2ff;
 }
 
 .messages_container {

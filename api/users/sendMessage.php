@@ -29,6 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $messagesStmt->bind_param("sss", $id, $recipient_id, $content);
         $messagesStmt->execute();
         if($messagesStmt->affected_rows > 0){
+
+            $notificationSql = "INSERT INTO notifications(user_id, type, source_id, post_id) VALUES ( ? , 'message' , ? , ? )";
+            $notificationStmt = $conn->prepare($notificationSql);
+            $notificationStmt->bind_param("sss",$recipient_id, $_SESSION['id'] ,  $post_id);
+            $notificationStmt->execute();
+            $notificationStmt->close();
             return array(
                 'status' => 201,
                 'message' => 'Message sent'

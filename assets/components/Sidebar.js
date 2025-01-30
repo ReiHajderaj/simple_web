@@ -107,6 +107,10 @@ const populateNotifications = async () => {
                                 notificationDiv.innerHTML = `
                                     <span class="request-text" onclick="goToPost(${notification.post_id}, ${notification.id})"> ${nameResponse.message.username} commented on your post</span>
                                 `;
+                            } else if(notification.type == 'message'){
+                                notificationDiv.innerHTML = `
+                                    <span class="request-text" onclick="window.location.href='/simple_web/dashboard/messages?id=${notification.source_id}'"> ${nameResponse.message.username} sent you a message</span>
+                                `;
                             }
 
                         }
@@ -332,13 +336,17 @@ const getFriends = async (e) => {
                             const friend = detailResult.message;
 
                             
-                            friendsListContainer.innerHTML += `<a href="/simple_web/dashboard/user?id=${friend.id}">
+                            friendsListContainer.innerHTML += `
+<div class = 'friend-container'>
+                            <a href="/simple_web/dashboard/user?id=${friend.id}">
                                 <img src="/simple_web/assets/images/avatars/${friend.profile_image_url}" 
                                              alt="${friend.username}'s avatar" 
                                              class="friend-avatar">
                                         <span class="friend-username">${friend.username}</span>
-                            </a><button class="remove-friend" onclick="removeFriend(${friend.id}, event)">Remove </button></a>
-                            `;
+                            </a>
+                            <button class="message-friend" onclick="window.location.href='/simple_web/dashboard/messages?id=${friend.id}'">Message</button>
+                            <button class="remove-friend" onclick="removeFriend(${friend.id}, event)">Remove </button>
+             </div>               `;
                             friendListDiv.appendChild(friendsListContainer);
 
                         }

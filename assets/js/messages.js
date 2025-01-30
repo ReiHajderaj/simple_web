@@ -1,6 +1,6 @@
 // Initialize chat functionality
 const initializeChat = async () => {
-    // try {
+    try {
         const urlParams = new URLSearchParams(window.location.search);
         const userId = urlParams.get('id');
         if (!userId) return;
@@ -12,9 +12,9 @@ const initializeChat = async () => {
         await loadMessages(userId);
         setupMessageInput(userId);
         
-    // } catch (error) {
-    //     console.error('Error initializing chat:', error);
-    // }
+    } catch (error) {
+        console.error('Error initializing chat:', error);
+    }
 };
 
 const getIdUser = async (userId) => {
@@ -39,11 +39,11 @@ const updateChatHeader = (userInfo) => {
     const profilePic = document.querySelector('#chatProfilePic');
     profilePic.src = `../../assets/images/avatars/${userInfo.profile_image_url}`;
     
-    document.querySelector('#chatUsername').textContent = userInfo.username;
+    document.querySelector('#chatUsername').outerHTML = `<a href="/simple_web/dashboard/user?id=${userInfo.id}">${userInfo.username}</a>`;
 };
 
 const loadMessages = async (userId) => {
-    // try {
+    try {
         const response = await fetch('../../api/users/getMessages.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -67,9 +67,9 @@ const loadMessages = async (userId) => {
             }
            
         }
-    // } catch (error) {
-    //     console.error('Error loading messages:', error);
-    // }
+    } catch (error) {
+        console.error('Error loading messages:', error);
+    }
 };
 
 const displayMessages = (messages, userId) => {

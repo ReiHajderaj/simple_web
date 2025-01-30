@@ -513,43 +513,104 @@ body {
 /* Sidebar container */
 .friends-list.active {
     position: fixed;
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    flex-wrap: wrap;
     top: 0;
     right: 0;
-    gap: 10px;
-    overflow-y: scroll;
-    max-width: 300px;
+    z-index: 100;
+    max-width: 400px;
     height: 100%;
-    background-color: #fff;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    overflow-y: auto;
-    z-index: 10;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(0);
+    display: flex;
+    flex-direction: column;
+    
+    gap: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
-.friends-list.active > a{
-    text-decoration: none;
+.friends-list.active a {
     display: flex;
-    padding: 10px;
-    justify-content: start;
     align-items: center;
+    text-decoration: none;
+    color: #333;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+
+    flex-grow: 1;
+    background-color: #fafafa;
 }
-.remove-friend {
-    background-color: #dc3545;
-    width: fit-content;
-    font-size: small;
-    padding: 10px;
+
+.friends-list.active a:hover {
+    background-color: #f0f0f0;
+}
+
+.friends-list.active .friend-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 2px solid #ddd;
+}
+
+.friends-list.active .friend-username {
+    font-size: 1rem;
+    font-weight: 500;
+    flex: 1;
+}
+
+.friend-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.friends-list.active .message-friend {
+    background-color: #007bff;
     color: #fff;
     border: none;
+    padding: 6px 12px;
     border-radius: 4px;
     cursor: pointer;
-    height: fit-content;    
-    align-self: center;
+    margin-left: auto;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
 }
+
+.friends-list.active .message-friend:hover {
+    background-color: #0056b3;
+}
+
+.friends-list.active .remove-friend {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+.friends-list.active .remove-friend:hover {
+    background-color: #c82333;
+}
+
+.friends-list.active .header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #2d3436;
+}
+
+
 
 
 /* If the sidebar is inactive (for hiding), add this class: .friends-list.inactive */

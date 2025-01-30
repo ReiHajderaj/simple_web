@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         
 
         // Missing semicolon here after the SQL query
-        $sql = "SELECT * FROM friends WHERE user_id_1 = ? OR user_id_2 = ?"; 
+        $sql = "SELECT * FROM friends WHERE user_id_1 = ? OR user_id_2 = ? ORDER BY created_at DESC"; 
         // return $_SESSION['id'];
         $response = [
             'status' => '',
