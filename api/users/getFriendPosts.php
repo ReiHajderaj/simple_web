@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         // Create a string of placeholders for the IN clause
         $placeholders = implode(',', array_fill(0, count($ids), '?'));
 
-        $sql = "SELECT * FROM posts WHERE user_id IN ($placeholders)";
+        $sql = "SELECT * FROM posts WHERE user_id IN ($placeholders) ORDER BY created_at DESC";
         $stmt = $conn->prepare($sql);
 
         // Dynamically bind parameters

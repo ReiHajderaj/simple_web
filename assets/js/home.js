@@ -17,7 +17,7 @@ const loadRecentPosts = async () => {
         if (postId) {
             // Construct the element ID based on the post ID
             const postElement = document.getElementById(`post_${postId}`);
-            console.log(postElement);
+            // console.log(postElement);
             
             if (postElement) {
                 // Scroll to the post smoothly
@@ -87,8 +87,6 @@ const displayPosts = async (posts) => {
 const createPostElement = async (post) => {
     try {
         const userInfo = await getUserInfo(post.user_id);
-        const likeCount = await getLikeCount(post.id);
-        const commentsCount = await getCommentCount(post.id);
 
         const formattedDate = formatDate(post.created_at);
 
@@ -113,8 +111,10 @@ const createPostElement = async (post) => {
                 </div>
             </div>
             <div class="post_bottom">
-                <div><i class="fas fa-thumbs-up"></i> <span onclick="likePost(${post.id}, event)">${likeCount} Likes</span></div>
-                <div><i class="fas fa-comment"></i> <span onclick="showComments(${post.id}, event)">${commentsCount} Comments</span></div>
+                <div><i class="fas fa-thumbs-up"></i> <span 
+                class="likeCount" onclick="likePost(${post.id}, event)">Likes</span></div>
+                <div><i class="fas fa-comment"></i> <span 
+                class="commentCount" onclick="showComments(${post.id}, event)">Comments</span></div>
             </div>
             <div class="post_comments">
                 <div class="post_comment_input">
@@ -124,6 +124,7 @@ const createPostElement = async (post) => {
                 <div class="post_comments_list"></div>
             </div>
         `;
+        reload(post.id);
         return postElement;
     } catch (error) {
         console.error('Error creating post element:', error);
@@ -203,13 +204,32 @@ const likePost = async (postId) => {
                 window.location.href = '../../auth/sign-in/';
             } else {
                 showPopup(result.message, 'success');
-                loadRecentPosts();
+                reload(postId);
             }
         }
     } catch (error) {
         console.error('Error liking post:', error);
     }
 };
+
+const reload = async (postId) => {
+    const comment = await getCommentCount(postId);
+    const like = await getLikeCount(postId);
+
+    const post = document.querySelector(`#post_${postId}`);
+    const likeCount = post.parentElement.querySelector('.likeCount');
+    const commentCount = post.parentElement.querySelector('.commentCount');
+    // console.log(post);
+    
+    
+    // console.log(commentCount);
+    
+    likeCount.textContent = `${like} Likes`;
+    commentCount.textContent = `${comment} Comments`;
+    // console.log(comment);
+    // console.log(like);
+    
+}
 
 const addComment = async (postId, e) => {
     try {
@@ -230,6 +250,7 @@ const addComment = async (postId, e) => {
                 commentInput.value = '';
                 showPopup(result.message, result.status === 201 ? 'success' : 'error');
                 showComments(postId, e);
+                reload(postId);
             }
         }
     } catch (error) {

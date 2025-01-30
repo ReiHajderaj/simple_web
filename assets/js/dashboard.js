@@ -41,43 +41,44 @@ const displayPosts = async (posts) => {
 const createPostElement = async (post) => {
     try {
         const userInfo = await getUserInfo(post.user_id);
-        const likeCount = await getLikeCount(post.id);
-        const commentsCount = await getCommentCount(post.id);
+        
 
         const formattedDate = formatDate(post.created_at);
 
         const postElement = document.createElement('div');
         postElement.classList.add('post');
-        postElement.innerHTML = `
-            <div id="post_${post.id}" class="post_top">
-                <div class="post_author_photo">
-                    <img src="../assets/images/avatars/${userInfo.profile_image_url}" alt="Profile Picture" class="profileImage">
-                </div>
-                <div class="post_info">
-                    <div class="post_author_name">${userInfo.username}</div>
-                    <div class="post_date">${formattedDate}</div>
-                </div>
-                <div class="post_close" onclick='removePost(event)'><i class="fas fa-close"></i></div>
-            </div>
-            <div class="post_content">
-                <span class="post_heading">${sanitizeHTML(post.title)}</span><br>
-                <p>${sanitizeHTML(post.content)}</p><br>
-                <div class="post_image">
-                    ${post.image_url ? `<img src="../assets/images/posts/${post.image_url}" alt="Post Image">` : ''}
-                </div>
-            </div>
-            <div class="post_bottom">
-                <div><i class="fas fa-thumbs-up"></i> <span onclick="likePost(${post.id}, event)">${likeCount} Likes</span></div>
-                <div><i class="fas fa-comment"></i> <span onclick="showComments(${post.id}, event)">${commentsCount} Comments</span></div>
-            </div>
-            <div class="post_comments">
-                <div class="post_comment_input">
-                    <input type="text" class="commentInput" placeholder="Add a comment">
-                    <button onclick="addComment(${post.id}, event)">Add</button>
-                </div>
-                <div class="post_comments_list"></div>
-            </div>
-        `;
+        postElement.innerHTML =`<div id="post_${post.id}" class="post_top">
+        <div class="post_author_photo">
+            <img src="../assets/images/avatars/${userInfo.profile_image_url}" alt="Profile Picture" class="profileImage">
+        </div>
+        <div class="post_info">
+            <div class="post_author_name">${userInfo.username}</div>
+            <div class="post_date">${formattedDate}</div>
+        </div>
+        <div class="post_close" onclick='removePost(event)'><i class="fas fa-close"></i></div>
+    </div>
+    <div class="post_content">
+        <span class="post_heading">${sanitizeHTML(post.title)}</span><br>
+        <p>${sanitizeHTML(post.content)}</p><br>
+        <div class="post_image">
+            ${post.image_url ? `<img src="../assets/images/posts/${post.image_url}" alt="Post Image">` : ''}
+        </div>
+    </div>
+    <div class="post_bottom">
+        <div><i class="fas fa-thumbs-up"></i> <span class="likeCount"
+        onclick="likePost(${post.id}, event)">Likes</span></div>
+        <div><i class="fas fa-comment"></i> <span 
+        class="commentCount" onclick="showComments(${post.id}, event)">Comments</span></div>
+    </div>
+    <div class="post_comments">
+        <div class="post_comment_input">
+            <input type="text" class="commentInput" placeholder="Add a comment">
+            <button onclick="addComment(${post.id}, event)">Add</button>
+        </div>
+        <div class="post_comments_list"></div>
+    </div>
+`;
+        reload(post.id);
         return postElement;
     } catch (error) {
         console.error('Error creating post element:', error);
@@ -157,7 +158,7 @@ const likePost = async (postId) => {
                 window.location.href = '../auth/sign-in/';
             } else {
                 showPopup(result.message, 'success');
-                loadRecentPosts();
+                reload(postId); 
             }
         }
     } catch (error) {
@@ -184,12 +185,32 @@ const addComment = async (postId, e) => {
                 commentInput.value = '';
                 showPopup(result.message, result.status === 201 ? 'success' : 'error');
                 showComments(postId, e);
+                reload(postId);
             }
         }
     } catch (error) {
         console.error('Error adding comment:', error);
     }
 };
+
+const reload = async (postId) => {
+    const comment = await getCommentCount(postId);
+    const like = await getLikeCount(postId);
+
+    const post = document.querySelector(`#post_${postId}`);
+    const likeCount = post.parentElement.querySelector('.likeCount');
+    const commentCount = post.parentElement.querySelector('.commentCount');
+    // console.log(post);
+    
+    
+    // console.log(commentCount);
+    
+    likeCount.textContent = `${like} Likes`;
+    commentCount.textContent = `${comment} Comments`;
+    // console.log(comment);
+    // console.log(like);
+    
+}
 
 const showComments = async (postId, e) => {
     try {

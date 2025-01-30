@@ -16,7 +16,8 @@ const Navbar = async () => {
                     </a>
                     <div class="search_container">
                         <div class="search_box">
-                            <input type="text" placeholder="Search" /><button>Search</button>
+                            <input type="text" id="navSearchInput" placeholder="Search" />
+                            <div id="navSearchDropdown" class="search-dropdown"></div>
                         </div>
                     </div>
                     <div class="user_container">
@@ -65,6 +66,59 @@ const Navbar = async () => {
     
     
 
+    // Add search functionality
+    const searchInput = document.querySelector('#navSearchInput');
+    const searchDropdown = document.querySelector('#navSearchDropdown');
+    let users = [];
+
+    try {
+        const usersRequest = await fetch('/simple_web/api/users/getUsers.php');
+        if (usersRequest.ok) {
+            const response = await usersRequest.json();
+            if (!response.error) {
+                users = response;
+                
+                searchInput.addEventListener('input', (e) => {
+                    const searchTerm = e.target.value.toLowerCase();
+                    const filteredUsers = users.filter(user => 
+                        user.username.toLowerCase().includes(searchTerm) || 
+                        user.email.toLowerCase().includes(searchTerm)
+                    );
+                    
+                    searchDropdown.innerHTML = '';
+                    
+                    if (searchTerm && filteredUsers.length > 0) {
+                        searchDropdown.style.display = 'block';
+                        filteredUsers.forEach(user => {
+                            const option = document.createElement('div');
+                            option.classList.add('dropdown-item');
+                            option.innerHTML = `
+                                <div class="user-info">
+                                    <div class="username">${user.username}</div>
+                                    <div class="email">${user.email}</div>
+                                </div>
+                            `;
+                            option.addEventListener('click', () => {
+                                window.location.href = `/simple_web/dashboard/user?id=${user.id}`;
+                            });
+                            searchDropdown.appendChild(option);
+                        });
+                    } else {
+                        searchDropdown.style.display = 'none';
+                    }
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+                        searchDropdown.style.display = 'none';
+                    }
+                });
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching users:', error);
+    }
 }
 
 

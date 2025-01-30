@@ -26,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         // return $post_id;
 
     
-        $sql = "SELECT * FROM `comments` WHERE `post_id` =  ?";
+        $sql = "SELECT * FROM `comments` WHERE `post_id` =  ? ORDER BY created_at DESC";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $post_id);
         $stmt->execute();

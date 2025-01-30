@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         $id = $_SESSION['id'];
 
-        $sql = "SELECT * FROM posts WHERE user_id = ?";
+        $sql = "SELECT * FROM posts WHERE user_id = ? ORDER BY created_at DESC";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $id);
         $stmt->execute();

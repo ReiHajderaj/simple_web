@@ -40,13 +40,59 @@ const getIdUser = async (userId) => {
     return null;
 };
 
-const updateUserProfile = (userInfo) => {
+
+
+const updateUserProfile = async (userInfo) => {
     const image = document.querySelector('#profileImage');
     image.src = `../../assets/images/avatars/${userInfo.profile_image_url}`;
 
     document.querySelector('#username').textContent = userInfo.username;
     document.querySelector('#bio').textContent = userInfo.bio;
+
+    const Friend = await isFriend(userInfo.id);
+    const friendButton = document.createElement('button');
+    friendButton.classList.add('friend-button');
+    console.log(userInfo);
+    
+    if (Friend) {
+        friendButton.classList.add('remove');
+        friendButton.textContent = 'Remove Friend';
+        friendButton.onclick = () => removeFriend(userInfo.id);
+        const messageButton = document.createElement('button');
+    messageButton.classList.add('message-button');
+    messageButton.textContent = 'Message';
+    messageButton.onclick = () => window.location.href = `../messages?id=${userInfo.id}`;
+
+    document.querySelector('#bio').after(messageButton);
+    } else {
+        friendButton.textContent = 'Add Friend';
+        friendButton.onclick = () => sendFriendRequest(userInfo.username);
+    }
+
+    
+    document.querySelector('#bio').after(friendButton);
 };
+
+const isFriend = async (friendId) => {
+    const response = await fetch('../../api/users/isFriend.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ friend_id: friendId })
+    });
+    if(response.ok){
+        const data = await response.json();
+        if(data.error){
+            window.location.href = '../../auth/sign-in/';
+            return false;
+        }else if(data.status == 201){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return false;
+};
+
 
 const fetchUserPosts = async (userId) => {
     const response = await fetch('../../api/users/getOtherUserPosts.php', {
@@ -61,7 +107,7 @@ const fetchUserPosts = async (userId) => {
             console.error('Error fetching posts:', data.message);
             return null;
         }
-        console.log(data.posts);
+        // console.log(data.posts);
         
         return data.posts;
     }

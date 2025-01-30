@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             return $response;
         }
     
-        $sql = "SELECT * FROM notifications WHERE user_id = ?";
+        $sql = "SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $_SESSION['id']);
         $stmt->execute();

@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $post_author_id = getPostAuthorId($post_id);
             $notificationSql = "INSERT INTO notifications(user_id, type, source_id, post_id) VALUES ( ? , 'comment' , ? , ? )";
             $notificationStmt = $conn->prepare($notificationSql);
-            $notificationStmt->bind_param("sss", $_SESSION['id'],  $post_author_id, $post_id);
+            $notificationStmt->bind_param("sss",$post_author_id, $_SESSION['id'],  $post_id);
             $notificationStmt->execute();
             $notificationStmt->close();
   

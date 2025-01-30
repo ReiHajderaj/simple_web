@@ -22,11 +22,9 @@ const Sidebar = () => {
                     <div class="item" >
                         <div id='add_friend' class="item_banner" onclick="addFriendInput()">Add A Friend</div>
                         <div class="add_friend_input">
-                            <input list="friendsList" id="friendSelect" placeholder="Search by name or email">
-    <datalist id="friendsList">
-        <!-- Options will be populated dynamically -->
-    </datalist>
-                            <button id="add_friend_btn">Send Request</button>
+                            <input type="text" id="friendSelect" placeholder="Search by name or email">
+                            <div id="friendsDropdown" class="friends-dropdown"></div>
+                            <button id="add_friend_btn" onclick="sendFriendRequest(friendSelect.value)">Send Request</button>
                         </div>
                     </div>
                     <div class="item">
@@ -149,8 +147,9 @@ const goToPost = async (postId, notificationId) => {
 
 
 const populateFriendsList = async () => {
-    const friendsList = document.querySelector('#friendsList');
-
+    const friendSelect = document.querySelector('#friendSelect');
+    const friendsDropdown = document.querySelector('#friendsDropdown');
+    let users = [];
 
     try {
         const request = await fetch('/simple_web/api/users/getUsers.php');
@@ -159,21 +158,51 @@ const populateFriendsList = async () => {
             if (response.error) {
                 console.error('Error populating friends list:', response.message);
                 window.location.href = '/simple_web/auth/sign-in';
-            }
-            else {
-                response.forEach(friend => {
-                    // console.log(friend);
+            } else {
+                users = response;
+                
+                // Add input event listener
+                friendSelect.addEventListener('input', (e) => {
+                    const searchTerm = e.target.value.toLowerCase();
+                    const filteredUsers = users.filter(user => 
+                        user.username.toLowerCase().includes(searchTerm) || 
+                        user.email.toLowerCase().includes(searchTerm)
+                    );
+                    
+                    // Clear previous results
+                    friendsDropdown.innerHTML = '';
+                    
+                    // Show dropdown if there are matches and input isn't empty
+                    if (searchTerm && filteredUsers.length > 0) {
+                        friendsDropdown.style.display = 'block';
+                        filteredUsers.forEach(user => {
+                            const option = document.createElement('div');
+                            option.classList.add('dropdown-item');
+                            option.innerHTML = `
+                                <div class="user-info">
+                                    <div class="username">${user.username}</div>
+                                    <div class="email">${user.email}</div>
+                                </div>
+                            `;
+                            option.addEventListener('click', () => {
+                                friendSelect.value = user.username;
+                                friendsDropdown.style.display = 'none';
+                            });
+                            friendsDropdown.appendChild(option);
+                        });
+                    } else {
+                        friendsDropdown.style.display = 'none';
+                    }
+                });
 
-                    const option = document.createElement('option');
-                    option.value = friend.username;
-                    option.textContent = friend.email;
-                    friendsList.appendChild(option);
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!friendSelect.contains(e.target) && !friendsDropdown.contains(e.target)) {
+                        friendsDropdown.style.display = 'none';
+                    }
                 });
             }
-
         }
-
-
     } catch (error) {
         console.error('Error populating friends list:', error);
     }
@@ -182,44 +211,46 @@ const populateFriendsList = async () => {
 document.addEventListener('DOMContentLoaded', async () => {
     Sidebar();
     populateFriendsList();
-    const sendRequestBtn = document.querySelector('#add_friend_btn');
 
-    sendRequestBtn.addEventListener('click', async (e) => {
-        const username = document.querySelector('#friendSelect').value;
-
-        try {
-            const request = await fetch('/simple_web/api/users/sendFriendRequest.php', {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username
-                })
-            })
-
-            if (request.ok) {
-                const response = await request.json();
-                console.log(response);
-                
-                if (response.error) {
-                    console.error('Error populating friends list:', response.message);
-                    window.location.href = '/simple_web/auth/sign-in';
-                } else if (response.status === 201) {
-                    // console.log(response);
-                    givePopup(response.message, 'success');
-                } else {
-
-                    displayError(response.message)
-                }
-            }
-        } catch (error) {
-            console.error("Fetching error: ", error);
-
-        }
-    })
 });
+
+const sendFriendRequest = async (username) => {
+    
+    
+
+    try {
+        const request = await fetch('/simple_web/api/users/sendFriendRequest.php', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username
+            })
+        })
+
+        if (request.ok) {
+            const response = await request.json();
+            console.log(response);
+            
+            if (response.error) {
+                console.error('Error populating friends list:', response.message);
+                window.location.href = '/simple_web/auth/sign-in';
+            } else if (response.status === 201) {
+                // console.log(response);
+                givePopup(response.message, 'success');
+            } else {
+
+                showPopup(response.message, 'error');
+            }
+        }
+    } catch (error) {
+        console.error("Fetching error: ", error);
+
+    }
+    
+}
 
 const handleFriendRequest = async (sender, type, e) => {
     try {
@@ -249,7 +280,7 @@ const handleFriendRequest = async (sender, type, e) => {
                 console.log(response);
                 e.target.parentElement.parentElement.remove();
             } else {
-                displayError(response.message);
+                showPopup(response.message, 'error');
             }
         }
     } catch (error) {
@@ -258,24 +289,6 @@ const handleFriendRequest = async (sender, type, e) => {
     }
 }
 
-const displayError = (message) => {
-    const friendDiv = document.querySelector('.add_friend_input')
-
-    const existingError = document.querySelector('.error-message');
-    if (existingError) {
-        existingError.remove();
-    }
-
-    const errorMessage = document.createElement('div');
-    errorMessage.classList.add('error-message');
-    errorMessage.textContent = message;
-    friendDiv.appendChild(errorMessage);
-
-    // Remove error message after 5 seconds
-    setTimeout(() => {
-        errorMessage.remove();
-    }, 5000);
-};
 
 const getFriends = async (e) => {
     const friendListDiv = e.target.parentElement;
