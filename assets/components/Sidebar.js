@@ -109,7 +109,7 @@ const populateNotifications = async () => {
                                 `;
                             } else if(notification.type == 'message'){
                                 notificationDiv.innerHTML = `
-                                    <span class="request-text" onclick="window.location.href='/simple_web/dashboard/messages?id=${notification.source_id}'"> ${nameResponse.message.username} sent you a message</span>
+                                    <span class="request-text" onclick="openChat(${notification.source_id}, ${notification.id})"> ${nameResponse.message.username} sent you a message</span>
                                 `;
                             }
 
@@ -126,6 +126,23 @@ const populateNotifications = async () => {
         }
     } catch (error) {
         console.error('Error populating notifications:', error);
+    }
+}
+
+const openChat = async (friendId, notificationId) => {
+    const request = await fetch('/simple_web/api/users/removeNotification.php', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ notification_id: notificationId })
+    });
+    if (request.ok) {
+        const response = await request.json();
+        // console.log(response);
+        if(response.status == 201){
+            window.location.href = `/simple_web/dashboard/messages?id=${friendId}`;
+        }
     }
 }
 

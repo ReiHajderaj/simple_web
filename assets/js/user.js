@@ -52,7 +52,7 @@ const updateUserProfile = async (userInfo) => {
     const Friend = await isFriend(userInfo.id);
     const friendButton = document.createElement('button');
     friendButton.classList.add('friend-button');
-    console.log(userInfo);
+    // console.log(userInfo);
     
     if (Friend) {
         friendButton.classList.add('remove');

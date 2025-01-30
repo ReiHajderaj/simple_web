@@ -32,7 +32,7 @@ AccountForm.addEventListener('submit', async (e) => {
             if (response.error) {
                 window.location.href = '../../auth/sign-in/';
             } else {
-                console.log(data);
+                // console.log(data);
 
 
                 const popup = document.createElement('div');
@@ -115,8 +115,9 @@ PasswordForm.addEventListener('submit', async (e) => {
                 } else {
                     const popup = document.createElement('div');
                     popup.classList.add('popup');
-
-                    if (data.status === 201) {
+                    // console.log(response);
+                    
+                    if (response.status == 201) {
                         popup.classList.add('success');
                     } else {
                         popup.classList.add('error');
