@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://kit.fontawesome.com/c3ccefe88c.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="icon" href="../../assets/icons/icon.png" type="image/png">
+    <link rel="stylesheet" href="../../assets/css/users.css">
+    
+    <title>Home - Social Media</title>
+</head>
+<body>
+    <div class="body">
+        <nav class="navbar">
+            <!-- Navbar content will be dynamically injected -->
+        </nav>
+        
+        <!-- Main Container -->
+        <div class="second_container">
+            <div class="side_nav">
+                <!-- Sidebar content will be dynamically injected -->
+            </div>
+            <div class="main_body">
+                
+                <!-- User Profile Section -->
+                <div class="user_profile">
+                    <div class="profile_picture">
+                        <img src="../../assets/images/avatars/default.png" alt="Profile Picture" id="profileImage">
+                    </div>
+                    <div class="user_info">
+                        <h2 id="username">Username</h2>
+                        <p id="bio">This is your bio...</p>
+                    </div>
+                </div>
+
+                <!-- Posting Container -->
+                <div class="posting_container">
+                    <input class="posting_input" type="text" placeholder="What's on your mind?" id="postTitle">
+                    <textarea class="posting_content" placeholder="Describe your experience.." rows="5" id="postContent"></textarea>
+                    
+                    <!-- Image Upload Section -->
+                    <div class="image_upload_section">
+                        <label for="postImage" class="upload-label">
+                            <i class="fas fa-image"></i> Add Image
+                        </label>
+                        <input type="file" id="postImage" accept="image/*" style="display: none;">
+                        <div id="imagePreviewContainer" style="display: none;">
+                            <img id="imagePreview" src="#" alt="Image Preview">
+                        </div>
+                    </div>
+                    
+                    <div class="posting_buttons">
+                        <button class="postBtn" id="postButton">Post it</button>
+                        <button class="draftBtn" id="cancelButton">Cancel</button>
+                    </div>
+                </div>
+
+                <!-- Recent Posts Section -->
+                <div class="post_container" id="recentPosts">
+                    <!-- User's and Friends' recent posts will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../assets/components/Navbar.js"></script>
+    <script src="../../assets/components/Sidebar.js"></script>
+    <script src="../../assets/js/isNotLogin.js"></script>
+    
+    <script src="../../assets/js/home.js"></script>
+</body>
+</html>

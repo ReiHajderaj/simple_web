@@ -1,0 +1,96 @@
+/* Users.css */
+
+/* User Profile Section */
+.user_profile {
+    display: flex;
+    
+    align-items: center;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user_profile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+}
+
+.profile_picture img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    margin-right: 30px;
+}
+
+.user_info {
+    flex: 1;
+}
+
+.user_info h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.8em;
+    color: #2d3436;
+    font-weight: 700;
+}
+
+.user_info p {
+    font-size: 1.1em;
+    color: #636e72;
+    line-height: 1.6;
+}
+
+/* User Profile Buttons */
+.user_info button {
+    padding: 5px;
+    margin-right: 15px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 30px;
+    font-size: 12px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.friend-button {
+    background-color: #6c5ce7;
+    color: white;
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+}
+
+.friend-button:hover {
+    background-color: #5b4bc4;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+}
+
+.friend-button.remove {
+    background-color: #ff7675;
+    box-shadow: 0 4px 15px rgba(255, 118, 117, 0.2);
+}
+
+.friend-button.remove:hover {
+    background-color: #ff6b6b;
+    box-shadow: 0 6px 20px rgba(255, 118, 117, 0.4);
+}
+
+.message-button {
+    background-color: #00b894;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 184, 148, 0.2);
+}
+
+.message-button:hover {
+    background-color: #00a885;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 184, 148, 0.4);
+}
+
+
+

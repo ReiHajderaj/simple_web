@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(45deg, #6b5ce7, #a991f7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.sign-in-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    position: relative;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1rem;
+}
+
+label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    transition: 0.3s;
+    pointer-events: none;
+}
+.error-message {
+    color: #ff3333;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+input:focus + label,
+input:valid + label {
+    top: -10px;
+    left: 5px;
+    font-size: 0.8rem;
+    background: white;
+    padding: 0 5px;
+    color: #6b5ce7;
+}
+
+input:focus {
+    border-color: #6b5ce7;
+}
+
+button {
+    background: #6b5ce7;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #5849c4;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.links a {
+    color: #6b5ce7;
+    text-decoration: none;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}

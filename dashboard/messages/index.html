@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://kit.fontawesome.com/c3ccefe88c.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="icon" href="../../assets/icons/icon.png" type="image/png">
+    <link rel="stylesheet" href="../../assets/css/messages.css">
+    
+    <title>Home - Social Media</title>
+</head>
+<body>
+    <div class="body">
+        <nav class="navbar">
+            <!-- Navbar content will be dynamically injected -->
+        </nav>
+        
+        <!-- Main Container -->
+        <div class="second_container">
+            <div class="side_nav">
+                <!-- Sidebar content will be dynamically injected -->
+            </div>
+            <div class="main_body">
+                <!-- Chat Container -->
+                <div class="chat_container">
+
+                    
+
+                    <!-- Message Section -->
+                    <div class="message_section">
+                        <!-- Profile Header -->
+                        <div class="message_header" id="currentChatHeader">
+                            <div class="chat_profile">
+                                <img src="../../assets/images/avatars/default.png" id="chatProfilePic" alt="Profile Picture">
+                                <div class="chat_profile_info">
+                                    <h3> <a id="chatUsername">Username</a></h3>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Messages Container -->
+                        <div class="messages_container" id="messagesContainer">
+                            <!-- Messages will be dynamically loaded here -->
+                        </div>
+
+                        <!-- Message Input -->
+                        <div class="message_input">
+                            <input type="text" id="messageInput" placeholder="Type a message...">
+                            <button id="sendMessage">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../assets/components/Navbar.js"></script>
+    <script src="../../assets/components/Sidebar.js"></script>
+    <script src="../../assets/js/isNotLogin.js"></script>
+    
+    <script src="../../assets/js/messages.js"></script>
+</body>
+</html>
